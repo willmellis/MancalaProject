@@ -4,7 +4,13 @@ counters = [[4,4,4,4,4,4],[4,4,4,4,4,4]]
 
 def button_click(row, col):
     # Handle button click event here
-    print(counters[row][col])
+    value = counters[row][col]
+    counters[row][col] = 0
+    if row == 0:
+        for i in value:
+            col =- 1
+            counters[row][col] += 1
+
 
 # Create the main window
 root = tk.Tk()

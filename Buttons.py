@@ -1,17 +1,24 @@
 import tkinter as tk
 
-counters = [[4,4,4,4,4,4],[4,4,4,4,4,4]]
+counters = [[0,4,4,4,4,4,4],[4,4,4,4,4,4,0]]
+
+p1 = True
+p2 = False
+
 
 def button_click(row, col):
     # Handle button click event here
     print( row  , col )
     value = counters[row][col]
     counters[row][col] = 0
+    button_grid[row][col].config(text=counters[row][col])
     if row == 0:
         for i in range(value):
             col -= 1
             counters[row][col] += 1
+            button_grid[row][col].config(text=counters[row][col])
     print( counters )
+
 
 
 # Create the main window
@@ -22,11 +29,14 @@ root.title("2x6 Grid of Buttons")
 button_grid = []
 for i in range(2):
     row = []
-    for j in range(6):
-        button = tk.Button(root, text=counters[i][j], command=lambda i=i, j=j: button_click(i, j))
+    for j in range(7):
+        button = tk.Button(root, text=counters[i][j], command=lambda i=i, j=j: button_click(i, j),
+        height = 2, width = 4, font = ("Times New Roman",70))
         button.grid(row=i, column=j, padx=10, pady=10)
         row.append(button)
     button_grid.append(row)
+button_grid[0][0].config(fg="red")
+button_grid[1][6].config(fg="blue")
 
 # Run the Tkinter main loop
 root.mainloop()

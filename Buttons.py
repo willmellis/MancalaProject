@@ -2,7 +2,7 @@ import tkinter as tk
 
 def button_click():
     # Handle button click event here
-    pass
+
 
 Counters = [
     [4, 4, 4, 4, 4, 4],
@@ -15,6 +15,8 @@ manacalaP2 = 0
 root = tk.Tk()
 root.title("Button Grid")
 
+count_label = tk.Label(root, text="Count: 0")
+count_label.pack()
 
 # Create a 2x6 grid of buttons
 button_grid = []

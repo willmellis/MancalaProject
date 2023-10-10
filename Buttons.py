@@ -12,11 +12,30 @@ def button_click(row, col):
     value = counters[row][col]
     counters[row][col] = 0
     button_grid[row][col].config(text=counters[row][col])
-    if row == 0:
-        for i in range(value):
-            col -= 1
-            counters[row][col] += 1
-            button_grid[row][col].config(text=counters[row][col])
+    if value > col:
+        wrap = value - col
+        if row == 0:
+            for i in range(value-wrap):
+                col -= 1
+                counters[row][col] += 1
+                button_grid[row][col].config(text=counters[row][col])
+            for j in range(wrap):
+                col = 0
+                counters[1][col] += 1
+                button_grid[1][col].config(text=counters[1][col])
+                col += 1
+        """if row == 1:
+            for i in range(value-wrap):
+                col += 1
+                counters[row][col] += 1
+                button_grid[row][col].config(text=counters[row][col])
+            for j in range(wrap):
+                col = 6
+                counters[0][col] += 1
+                button_grid[0][6].config(text=counters[0][col])
+                col -= 1"""
+
+
     print( counters )
 
 

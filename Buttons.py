@@ -12,6 +12,7 @@ def button_click(row, col):
     value = counters[row][col]
     counters[row][col] = 0
     button_grid[row][col].config(text=counters[row][col])
+    #wrapping
     if value > col:
         wrap = value - col
         if row == 0:
@@ -24,7 +25,30 @@ def button_click(row, col):
                 counters[1][col] += 1
                 button_grid[1][col].config(text=counters[1][col])
                 col += 1
-        """if row == 1:
+        if row == 1:
+
+            for a in range(abs(value-wrap)):
+                col += 1
+                counters[row][col] += 1
+                button_grid[row][col].config(text=counters[row][col])
+            col = 6
+            for b in range(wrap):
+                counters[0][col] += 1
+                button_grid[0][col].config(text=counters[0][col])
+                col -= 1
+    """elif value <= col:
+        if row == 0:
+            for i in range(value):
+                col -= 1
+                counters[row][col] += 1
+                button_grid[row][col].config(text=counters[row][col])
+            col = 0
+        if row == 1:
+            for j in range(value):
+                counters[1][col] += 1
+                button_grid[1][col].config(text=counters[1][col])
+                col += 1
+        if row == 1:
             for i in range(value-wrap):
                 col += 1
                 counters[row][col] += 1
@@ -42,7 +66,7 @@ def button_click(row, col):
 
 # Create the main window
 root = tk.Tk()
-root.title("2x6 Grid of Buttons")
+root.title("Mancala Game")
 
 # Create a 2x6 grid of buttons
 button_grid = []

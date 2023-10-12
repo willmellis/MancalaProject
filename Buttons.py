@@ -43,9 +43,9 @@ def button_click(row, col):
             counters[row][col] += 1
             button_grid[row][col].config(text=counters[row][col])
     # No Wrapping, Row 1
-    if value <= col and row == 0:
+    if value > col and row == 1:
         for a in range(value):
-            col -= 1
+            col += 1
             counters[row][col] += 1
             button_grid[row][col].config(text=counters[row][col])
 

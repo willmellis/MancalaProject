@@ -8,56 +8,48 @@ p2 = False
 
 def button_click(row, col):
     # Handle button click event here
-    print( row  , col )
+    print( row , col )
     value = counters[row][col]
     counters[row][col] = 0
     button_grid[row][col].config(text=counters[row][col])
-    #wrapping
-    if value > col:
+    # wraps starting on row 0
+    if value > col and row == 0:
         wrap = value - col
-        if row == 0:
-            for i in range(value-wrap):
-                col -= 1
-                counters[row][col] += 1
-                button_grid[row][col].config(text=counters[row][col])
-            col = 0
-            for j in range(wrap):
-                counters[1][col] += 1
-                button_grid[1][col].config(text=counters[1][col])
-                col += 1
-        if row == 1:
+        for i in range(value-wrap):
+            col -= 1
+            counters[row][col] += 1
+            button_grid[row][col].config(text=counters[row][col])
+        col = 0
+        for j in range(wrap):
+            counters[1][col] += 1
+            button_grid[1][col].config(text=counters[1][col])
+            col += 1
+    # Wrapping starting on row 1
+    if value > 6 - col and row == 1:
+        wrap = value - (6 - col)
+        for a in range(6 - col):
+            col += 1
+            counters[row][col] += 1
+            button_grid[row][col].config(text=counters[row][col])
+        col = 6
+        for b in range(wrap):
+           counters[0][col] += 1
+           button_grid[0][col].config(text=counters[0][col])
+           col -= 1
+    # No Wrapping, Row 0
+    if value <= col and row == 0:
+        for a in range(value):
+            col -= 1
+            counters[row][col] += 1
+            button_grid[row][col].config(text=counters[row][col])
+    # No Wrapping, Row 1
+    if value <= col and row == 0:
+        for a in range(value):
+            col -= 1
+            counters[row][col] += 1
+            button_grid[row][col].config(text=counters[row][col])
 
-            for a in range(abs(value-wrap)):
-                col += 1
-                counters[row][col] += 1
-                button_grid[row][col].config(text=counters[row][col])
-            col = 6
-            for b in range(wrap):
-                counters[0][col] += 1
-                button_grid[0][col].config(text=counters[0][col])
-                col -= 1
-    """elif value <= col:
-        if row == 0:
-            for i in range(value):
-                col -= 1
-                counters[row][col] += 1
-                button_grid[row][col].config(text=counters[row][col])
-            col = 0
-        if row == 1:
-            for j in range(value):
-                counters[1][col] += 1
-                button_grid[1][col].config(text=counters[1][col])
-                col += 1
-        if row == 1:
-            for i in range(value-wrap):
-                col += 1
-                counters[row][col] += 1
-                button_grid[row][col].config(text=counters[row][col])
-            for j in range(wrap):
-                col = 6
-                counters[0][col] += 1
-                button_grid[0][6].config(text=counters[0][col])
-                col -= 1"""
+
 
 
     print( counters )

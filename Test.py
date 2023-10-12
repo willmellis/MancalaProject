@@ -1,64 +1,98 @@
 import tkinter as tk
 
+counters = [[0,4,4,4,4,4,4],[4,4,4,4,4,4,0]]
+
+p1 = True
+p2 = False
+
 
 def button_click(row, col):
-    global Counters, mancalaP1, mancalaP2
-    stones = Counters[row][col]
-    Counters[row][col] = 0
+    # Handle button click event here
+    print( row , col )
+    value = counters[row][col]
+    counters[row][col] = 0
+    button_grid[row][col].config(text=counters[row][col])
+    #if the value is greater than the column, wraps starting on row 0
+    if value > col and row == 0:
+        wrap = value - col
+        for i in range(wrap):
+            col -= 1
+            counters[row][col] += 1
+            button_grid[row][col].config(text=counters[row][col])
+        col = 0
+        for j in range(wrap):
+            counters[row][col] += 1
+            button_grid[row][col].config(text=counters[row][col])
+            col += 1
 
-    # Distribute stones to adjacent pits
-    while stones > 0:
-        col += 1
-        if col == 6:
-            row = 1 - row
+    # Wrapping starting on row 1
+    if value > 6 - col and row == 1:
+        wrap = value - (6 - col)
+        for a in range(6 - col):
+            col += 1
+            counters[row][col] += 1
+            button_grid[row][col].config(text=counters[row][col])
+        col = 6
+        for b in range(wrap):
+            counters[0][col] += 1
+            button_grid[0][col].config(text=counters[0][col])
+            col -= 1
+
+        """if row == 1:
+            for a in range(abs(value-wrap)):
+                col += 1
+                counters[row][col] += 1
+                button_grid[row][col].config(text=counters[row][col])
+            col = 6
+            for b in range(wrap):
+                counters[0][col] += 1
+                button_grid[0][col].config(text=counters[0][col])
+                col -= 1
+        elif value <= col:
+        if row == 0:
+            for i in range(value):
+                col -= 1
+                counters[row][col] += 1
+                button_grid[row][col].config(text=counters[row][col])
             col = 0
-        Counters[row][col] += 1
-        stones -= 1
+        if row == 1:
+            for j in range(value):
+                counters[1][col] += 1
+                button_grid[1][col].config(text=counters[1][col])
+                col += 1
+        if row == 1:
+            for i in range(value-wrap):
+                col += 1
+                counters[row][col] += 1
+                button_grid[row][col].config(text=counters[row][col])
+            for j in range(wrap):
+                col = 6
+                counters[0][col] += 1
+                button_grid[0][6].config(text=counters[0][col])
+                col -= 1"""
 
-    # Update button labels
-    update_buttons()
+
+    print( counters )
 
 
-def update_buttons():
-    global Counters, mancalaP1, mancalaP2
-    for i in range(2):
-        for j in range(6):
-            button_grid[i][j]["text"] = Counters[i][j]
-
-    # Update Mancala counts
-    mancala_label_P1["text"] = f"Player 1 Mancala: {mancalaP1}"
-    mancala_label_P2["text"] = f"Player 2 Mancala: {mancalaP2}"
-
-
-Counters = [
-    [4, 4, 4, 4, 4, 4],
-    [4, 4, 4, 4, 4, 4]
-]
-mancalaP1 = 0
-mancalaP2 = 0
 
 # Create the main window
 root = tk.Tk()
 root.title("Mancala Game")
 
-count_label = tk.Label(root, text="Mancala Game")
-count_label.pack()
-
-# Create labels for Mancala counts
-mancala_label_P1 = tk.Label(root, text=f"Player 1 Mancala: {mancalaP1}")
-mancala_label_P1.pack()
-mancala_label_P2 = tk.Label(root, text=f"Player 2 Mancala: {mancalaP2}")
-mancala_label_P2.pack()
-
 # Create a 2x6 grid of buttons
 button_grid = []
 for i in range(2):
     row = []
-    for j in range(6):
-        button = tk.Button(root, text=Counters[i][j], command=lambda i=i, j=j: button_click(i, j), font=("Arial", 20))
+    for j in range(7):
+        button = tk.Button(root, text=counters[i][j], command=lambda i=i, j=j: button_click(i, j),
+        height = 2, width = 4, font = ("Times New Roman",70))
         button.grid(row=i, column=j, padx=10, pady=10)
         row.append(button)
     button_grid.append(row)
+button_grid[0][0].config(fg="red")
+button_grid[1][6].config(fg="blue")
 
 # Run the Tkinter main loop
 root.mainloop()
+

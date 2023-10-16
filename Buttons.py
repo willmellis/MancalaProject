@@ -42,7 +42,7 @@ def button_click(row, col):
                 col += 1
                 counters[row][col] += 1
                 button_grid[row][col].config(text=counters[row][col])
-        if value > 6 - col and row == 1:#if the value is larger then 6 - the index of the colum and the row == 1
+        elif value > 6 - col and row == 1:#if the value is larger then 6 - the index of the colum and the row == 1
             wrap = value - (6 - col)
             for a in range(6 - col): #while a <= 6-col the code below will run
                 col += 1

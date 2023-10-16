@@ -22,7 +22,7 @@ def button_click(row, col):
                 col -= 1
                 counters[row][col] += 1
                 button_grid[row][col].config(text=counters[row][col])
-            col = 0
+            #col = 0
             for j in range(wrap): #while j is <=wrap, the code below will run
                 counters[1][col] += 1
                 button_grid[1][col].config(text=counters[1][col])

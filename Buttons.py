@@ -5,16 +5,14 @@ counters = [[0,4,4,4,4,4,4],[4,4,4,4,4,4,0]]
 
 player = True
 
-
-#this method determines what modifications are made to the board after a player clicks on a pit of their choice.
-#The modifications depends on what happens during the move, and what happens after. (i.e if a player lands in an empty pit)
-def button_click(row, col):
-    print(row, col)
+def actions0(row,col):
+    global player
+    if row == 1:
+        player = not player
+        return
     value = counters[row][col]
     counters[row][col] = 0
     button_grid[row][col].config(text=counters[row][col])
-    # The if statements below deal with the idea of what happens when the changes in the pit values "wrap" around the board
-    # i.e if the value changes start on one row on the board and have to also change on the other row, the code below will come into play
     if value > col and row == 0:  # if the value (number of stones) is grater then the index of the colum and the row == 0
         wrap = value - col
         for i in range(value - wrap):  # the for loop runs while i is <=value-wrap
@@ -26,6 +24,20 @@ def button_click(row, col):
             counters[1][col] += 1
             button_grid[1][col].config(text=counters[1][col])
             col += 1
+    if value <= col and row == 0:  # if value <= the colum index and row == 0 the code below will run
+        for c in range(value):  # while a <= value, the code below will run
+            col -= 1
+            counters[row][col] += 1
+            button_grid[row][col].config(text=counters[row][col])
+
+def actions1(row,col):
+    global player
+    if row == 0:
+        player = not player
+        return
+    value = counters[row][col]
+    counters[row][col] = 0
+    button_grid[row][col].config(text=counters[row][col])
     if value > 6 - col and row == 1:  # if the value is larger then 6 - the index of the colum and the row == 1
         wrap = value - (6 - col)
         for a in range(6 - col):  # while a <= 6-col the code below will run
@@ -37,17 +49,21 @@ def button_click(row, col):
             counters[0][col] += 1
             button_grid[0][col].config(text=counters[0][col])
             col -= 1
-    # No Wrapping, Row 0
-    if value <= col and row == 0:  # if value <= the colum index and row == 0 the code below will run
-        for c in range(value):  # while a <= value, the code below will run
-            col -= 1
-            counters[row][col] += 1
-            button_grid[row][col].config(text=counters[row][col])
     if value <= 6 - col and row == 1:  # if the value is <= the index of the colum and the row = 0, the code below will run
         for d in range(value):  # while a is <= value, the code below will run
             col += 1
             counters[row][col] += 1
             button_grid[row][col].config(text=counters[row][col])
+
+#this method determines what modifications are made to the board after a player clicks on a pit of their choice.
+#The modifications depends on what happens during the move, and what happens after. (i.e if a player lands in an empty pit)
+def button_click(row, col):
+    global player
+    if player == True:
+        actions0(row,col)
+    elif player == False:
+        actions1(row,col)
+    player = not player
 print( counters )
 
 

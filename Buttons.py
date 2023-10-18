@@ -98,4 +98,3 @@ button_grid[1][6].config(fg="purple")
 
 #used to run tkinter
 root.mainloop()
-

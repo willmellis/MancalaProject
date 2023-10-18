@@ -21,7 +21,7 @@ def button_click(row, col):
             col -= 1
             counters[row][col] += 1
             button_grid[row][col].config(text=counters[row][col])
-        #col = 0
+        col = 0
         for j in range(wrap): #while j is <=wrap, the code below will run
             counters[1][col] += 1
             button_grid[1][col].config(text=counters[1][col])
@@ -32,20 +32,21 @@ def button_click(row, col):
             col += 1
             counters[row][col] += 1
             button_grid[row][col].config(text=counters[row][col])
-        #col = 6
+        col = 6
         for b in range(wrap): #while b is <=wrap, the code below will run
            counters[0][col] += 1
            button_grid[0][col].config(text=counters[0][col])
            col -= 1
     # No Wrapping, Row 0
     if value <= col and row == 0: #if value <= the colum index and row == 0 the code below will run
-        for c in range(value):#while a <= value, the code below will run
+        for a in range(value):#while a <= value, the code below will run
             col -= 1
             counters[row][col] += 1
             button_grid[row][col].config(text=counters[row][col])
-    if value <= 6-col and row == 1: #if the value is <= the index of the colum and the row = 0, the code below will run
-        for d in range(value): #while a is <= value, the code below will run
-            col += 1
+    if value <= col and row == 0: #if the value is <= the index of the colum and the row = 0, the code below will run
+        for a in range(value): #while a is <= value, the code below will run
+
+            col -= 1
             counters[row][col] += 1
             button_grid[row][col].config(text=counters[row][col])
 

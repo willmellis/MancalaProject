@@ -1,22 +1,21 @@
 import tkinter as tk
 
 #creates the values of the pits in the mancala board
-counters = [[0,4,4,4,4,4,4],[4,4,4,4,4,4,0]]
+counters = [[4,4,4,4,4,4,4],[4,4,4,4,4,4,4]]
 
 player = True
+counter1 = 0
+counter2 = 0
 
 def actions0(row,col):
     global player
     if row == 1:
         player = not player
         return
-    if row == 0 and col == 0:
-        player = not player
-        return
     value = counters[row][col]
     counters[row][col] = 0
     button_grid[row][col].config(text=counters[row][col])
-    if value > col and row == 0:  # if the value (number of stones) is grater then the index of the colum and the row == 0
+    if value > col and row == 0:  # if the value (number of stones) is grater then the index of the column and the row == 0
         wrap = value - col
         for i in range(value - wrap):  # the for loop runs while i is <=value-wrap
             col -= 1
@@ -36,9 +35,6 @@ def actions0(row,col):
 def actions1(row,col):
     global player
     if row == 0:
-        player = not player
-        return
-    if row == 1 and col == 6:
         player = not player
         return
     value = counters[row][col]
@@ -88,12 +84,10 @@ for i in range(2):#while i <= 2(the number of rows), the code below will run
         button.grid(row=i, column=j, padx=10, pady=10)
         row.append(button)
     button_grid.append(row)
-for i in range(6):
-    button_grid[0][i+1].config(fg="red")
+for i in range(7):
+    button_grid[0][i].config(fg="red")
     button_grid[1][i].config(fg="blue")
 
-button_grid[0][0].config(fg="orange")
-button_grid[1][6].config(fg="purple")
 
 
 #used to run tkinter

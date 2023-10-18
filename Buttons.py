@@ -17,18 +17,29 @@ def actions0(row,col):
     button_grid[row][col].config(text=counters[row][col])
     if value > col and row == 0:  # if the value (number of stones) is grater then the index of the column and the row == 0
         wrap = value - col
-        for i in range(value - wrap):  # the for loop runs while i is <=value-wrap
+        runRow = value - wrap   # I added this so that the for loop below would work, and we could change value
+        for i in range(runRow):  # the for loop runs while i is <=value-wrap
             col -= 1
             counters[row][col] += 1
             button_grid[row][col].config(text=counters[row][col])
+            value-=1
         # col = 0
+
         for j in range(wrap):  # while j is <=wrap, the code below will run
             counters[1][col] += 1
             button_grid[1][col].config(text=counters[1][col])
             col += 1
+            value -= 1
+
+
+    # ok, so the code below is what was causing the issue
+    # this code is supposed to handle the wrap back around, if the number is large enough
+    # so you need the loop to start at the right most col
+    # row needs to be starting at 0
     if value <= col and row == 0:  # if value <= the colum index and row == 0 the code below will run
         for c in range(value):  # while a <= value, the code below will run
             col -= 1
+            print("col",col)
             counters[row][col] += 1
             button_grid[row][col].config(text=counters[row][col])
 

@@ -17,7 +17,12 @@ def actions0(row,col):
     button_grid[row][col].config(text=counters[row][col])
     if value > col and row == 0:  # if the value (number of stones) is grater then the index of the column and the row == 0
         wrap = value - col
-        runRow = value - wrap   # I added this so that the for loop below would work, and we could change value
+
+        # I added this so that the for loop below would work, and we could change value
+        # This solves you issue with the far left pit.
+        # note how I subtract one from value in both loops
+        runRow = value - wrap
+
         for i in range(runRow):  # the for loop runs while i is <=value-wrap
             col -= 1
             counters[row][col] += 1

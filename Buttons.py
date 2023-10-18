@@ -10,6 +10,9 @@ def actions0(row,col):
     if row == 1:
         player = not player
         return
+    if row == 0 and col == 0:
+        player = not player
+        return
     value = counters[row][col]
     counters[row][col] = 0
     button_grid[row][col].config(text=counters[row][col])
@@ -33,6 +36,9 @@ def actions0(row,col):
 def actions1(row,col):
     global player
     if row == 0:
+        player = not player
+        return
+    if row == 1 and col == 6:
         player = not player
         return
     value = counters[row][col]
@@ -82,8 +88,12 @@ for i in range(2):#while i <= 2(the number of rows), the code below will run
         button.grid(row=i, column=j, padx=10, pady=10)
         row.append(button)
     button_grid.append(row)
-button_grid[0][0].config(fg="red")
-button_grid[1][6].config(fg="blue")
+for i in range(6):
+    button_grid[0][i+1].config(fg="red")
+    button_grid[1][i].config(fg="blue")
+
+button_grid[0][0].config(fg="orange")
+button_grid[1][6].config(fg="purple")
 
 
 #used to run tkinter

@@ -18,20 +18,25 @@ def actions0(row,col):
     if value > col and row == 0:  # if the value (number of stones) is grater then the index of the colum and the row == 0
         wrap = value - col
         alr = wrap - 7
+        print("wrap =",wrap,"  alr =",alr)
         for i in range(value - wrap):  # the for loop runs while i is <=value-wrap
             col -= 1
             counters[row][col] += 1
             button_grid[row][col].config(text=counters[row][col])
         # col = 0
+        if wrap > 6:
+            wrap -= alr
+            print("NEW wrap =",wrap,"  alr =",alr)
         for j in range(wrap): # while j is <=wrap, the code below will run
             counters[1][col] += 1
             button_grid[1][col].config(text=counters[1][col])
             col += 1
+
         if alr > 0:
-          for f in range(alr):
-            counters[0][col] += 1
-            col -= 1
-            button_grid[row][col].config(text=counters[0][col])
+            for f in range(alr):
+                col -= 1
+                counters[0][col] += 1
+                button_grid[row][col].config(text=counters[0][col])
 
     # ok, so the code below is what was causing the issue
     # this code is supposed to handle the wrap back around, if the number is large enough
@@ -84,7 +89,7 @@ def actions1(row,col):
         #print(row,col)
     if counters[row][col] == 1:
         player = not player
-        counter1 += row[1][col]
+        counter1 += counters[1][col]
 
 #this method determines what modifications are made to the board after a player clicks on a pit of their choice.
 #The modifications depends on what happens during the move, and what happens after. (i.e if a player lands in an empty pit)

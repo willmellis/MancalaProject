@@ -118,7 +118,6 @@ for i in range(7):
     button_grid[1][i].config(fg="blue")
 
 root = tk.Tk()
-# Create a label to display text
 text_label = tk.Label(root, text=counter1, font=("Helvetica", 12))
 text_label.pack(pady=20)
 

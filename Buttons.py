@@ -23,7 +23,6 @@ def actions0(row,col):
             col -= 1
             counters[row][col] += 1
             button_grid[row][col].config(text=counters[row][col])
-        # col = 0
         if wrap > 6:
             wrap -= alr
             print("NEW wrap =",wrap,"  alr =",alr)
@@ -31,7 +30,6 @@ def actions0(row,col):
             counters[1][col] += 1
             button_grid[1][col].config(text=counters[1][col])
             col += 1
-
         if alr > 0:
             for f in range(alr):
                 col -= 1
@@ -62,12 +60,12 @@ def actions1(row,col):
     button_grid[row][col].config(text=counters[row][col])
     if value > 6-col and row == 1:  # if the value (number of stones) is grater then the index of the column and the row == 0
         wrap = value - (6 - col)
+        alr = wrap - 7
         row = 0
         # I added this so that the for loop below would work, and we could change value
         # This solves you issue with the far left pit.
         # note how I subtract one from value in both loops
         runRow = 6 - col
-
         for i in range(runRow):  # the for loop runs while i is <=value-wrap
             col += 1
             counters[1][col] += 1
@@ -78,6 +76,7 @@ def actions1(row,col):
             counters[0][col] += 1
             button_grid[0][col].config(text=counters[0][col])
             col -= 1
+
         col += 1
         #print(row, col)
     if value <= 6 - col and row == 1:  # if the value is <= the index of the colum and the row = 0, the code below will run
@@ -90,6 +89,7 @@ def actions1(row,col):
     if counters[row][col] == 1:
         player = not player
         counter1 += counters[1][col]
+
 
 #this method determines what modifications are made to the board after a player clicks on a pit of their choice.
 #The modifications depends on what happens during the move, and what happens after. (i.e if a player lands in an empty pit)

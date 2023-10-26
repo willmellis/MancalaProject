@@ -58,6 +58,8 @@ def actions0(row,col):
        player = not player
        counter1 += counters[1][col]
    if counters[row][col] == 3:
+       counters[row][col] = 0
+       button_grid[row][col].config(text=counters[row][col])
        counter1 += 3
    print(counter1)
 
@@ -107,7 +109,11 @@ def actions1(row,col):
    if counters[row][col] == 1:
        player = not player
        counter2 += counters[1][col]
+       counters[1][col] = 0
+       button_grid[1][col].config(text=counters[1][col])
    if counters[row][col] == 3:
+       counters[row][col] = 0
+       button_grid[row][col].config(text=counters[row][col])
        counter2 += 3
    print(counter2)
 

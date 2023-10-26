@@ -1,16 +1,50 @@
 
 
 import tkinter as tk
-
+#needed this to make the updating text labels
+from tkinter import ttk, StringVar
 
 #creates the values of the pits in the mancala board
 counters = [[4,4,4,4,4,4,4],[4,4,4,4,4,4,4]]
 
+#!moved all of this to the top of your code. The computer will read seqeuntially!
+#!the first thing you want to do is create your gui and variables so you can use them later on!
+#!didn't change your math at all, just creating the labels!
+
+#This code will create the window for the mancala game itself
+root = tk.Tk()
+root.title("Mancala Game")
+
+#created two updating labels to keep track of scores
+counterLabel1 = StringVar()
+counterLabel2 = StringVar()
+counterLabel1.set("0")
+counterLabel2.set("0")
+
+#adds both labels to the gui
+label1 = ttk.Label(root, textvariable = counterLabel1, font = ("Times New Roman",70))
+label1.grid(row=2, column=2)
+label2 = ttk.Label(root, textvariable = counterLabel2, font = ("Times New Roman",70))
+label2.grid(row=2, column=4)
+
+#This code will create the mancala board as it is seen when the program runs
+#the board will be 2x7 (2x6 including the 2 mancalas, one on each side)
+button_grid = []
+for i in range(2):#while i <= 2(the number of rows), the code below will run
+   row = []
+   for j in range(7):#while j <= 7(the number of colums), the code below will run
+       button = tk.Button(root, text=counters[i][j], command=lambda i=i, j=j: button_click(i, j),
+       height = 2, width = 4, font = ("Times New Roman",70))
+       button.grid(row=i, column=j, padx=10, pady=10)
+       row.append(button)
+   button_grid.append(row)
+for i in range(7):
+   button_grid[0][i].config(fg="red")
+   button_grid[1][i].config(fg="blue")
 
 player = True
 counter1 = 0
 counter2 = 0
-
 
 def actions0(row,col):
    global player
@@ -57,14 +91,14 @@ def actions0(row,col):
    if counters[row][col] == 1:
        player = not player
        counter1 += counters[1][col]
+       #updates player 1's score in label
+       counterLabel1.set(str(counter1))
    if counters[row][col] == 3:
        counters[row][col] = 0
        button_grid[row][col].config(text=counters[row][col])
        counter1 += 3
-   print(counter1)
-   #button1.config(text=counter1)
-
-
+       #updates player 1's score in label
+       counterLabel1.set(str(counter1))
 
 def actions1(row,col):
    global player
@@ -112,15 +146,14 @@ def actions1(row,col):
        counter2 += counters[1][col]
        counters[0][col] = 0
        button_grid[0][col].config(text=counters[0][col])
+       #updates player 2's score in label
+       counterLabel2.set(str(counter2))
    if counters[row][col] == 3:
        counters[row][col] = 0
        button_grid[row][col].config(text=counters[row][col])
-       counter2 += 3
-   print(counter2)
-   #button2.config(text=counter2)
-
-
-
+       counter2 += 3  
+       #updates player 2's score in label
+       counterLabel2.set(str(counter2))
 #this method determines what modifications are made to the board after a player clicks on a pit of their choice.
 #The modifications depends on what happens during the move, and what happens after. (i.e if a player lands in an empty pit)
 def button_click(row, col):
@@ -132,35 +165,6 @@ def button_click(row, col):
    player = not player
 #print( counters )
 
-
-
-
-#This code will create the window for the mancala game itself
-root = tk.Tk()
-root.title("Mancala Game")
-
-
-#This code will create the mancala board as it is seen when the program runs
-#the board will be 2x7 (2x6 including the 2 mancalas, one on each side)
-button_grid = []
-for i in range(2):#while i <= 2(the number of rows), the code below will run
-   row = []
-   for j in range(7):#while j <= 7(the number of colums), the code below will run
-       button = tk.Button(root, text=counters[i][j], command=lambda i=i, j=j: button_click(i, j),
-       height = 2, width = 4, font = ("Times New Roman",70))
-       button.grid(row=i, column=j, padx=10, pady=10)
-       row.append(button)
-   button_grid.append(row)
-for i in range(7):
-   button_grid[0][i].config(fg="red")
-   button_grid[1][i].config(fg="blue")
-
-popup = tk.Tk()
-#button1 = tk.Button(popup, text=str(counter1), command=lambda, height=2, width=4, font=("Times New Roman", 70))
-#button2 = tk.Button(popup, text=str(counter2), command=lambda, height=2, width=4, font=("Times New Roman", 70))
-
-
-print(counter1, counter2)
 # Start the tkinter main loop
 root.mainloop()
 

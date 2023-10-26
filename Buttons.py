@@ -71,18 +71,10 @@ def actions1(row,col):
             counters[1][col] += 1
             button_grid[1][col].config(text=counters[1][col])
         # col = 0
-        if wrap > 6:
-            wrap -= alr
-            print("NEW wrap =",wrap,"  alr =",alr)
         for j in range(wrap):  # while j is <=wrap, the code below will run
             counters[0][col] += 1
             button_grid[0][col].config(text=counters[0][col])
             col -= 1
-        if alr > 0:
-            for f in range(alr):
-                counters[1][col] += 1
-                button_grid[1][col].config(text=counters[1][col])
-                col += 1
         col += 1
         #print(row, col)
     if value <= 6 - col and row == 1:  # if the value is <= the index of the colum and the row = 0, the code below will run

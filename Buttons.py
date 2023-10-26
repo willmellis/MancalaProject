@@ -9,7 +9,7 @@ counter2 = 0
 
 def actions0(row,col):
     global player
-    if row == 1:
+    if row == 1: #if the row being modified is the bottom row, player = not player
         player = not player
         return
     value = counters[row][col]
@@ -59,9 +59,9 @@ def actions1(row,col):
     counters[row][col] = 0
     tempcol2 = col
     button_grid[row][col].config(text=counters[row][col])
-    if value <= 6 - col and row == 1:  # if the value is <= the index of the colum and the row = 0, the code below will run
+    if value <= 6 - col and row == 1: # if the value is <= the index of the colum and the row = 0, the code below will run
         row = 1
-        for d in range(value):  # while a is <= value, the code below will run
+        for d in range(value): # while a is <= value, the code below will run
             col += 1
             counters[row][col] += 1
             button_grid[row][col].config(text=counters[row][col])
@@ -85,9 +85,9 @@ def actions1(row,col):
             col -= 1
         if alr > 0:
             for f in range(alr):
+                col += 1
                 counters[1][col] += 1
                 button_grid[1][col].config(text=counters[1][col])
-                col += 1
         col += 1
         #print(row, col)
     if counters[row][col] == 1:

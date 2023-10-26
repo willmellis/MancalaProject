@@ -62,6 +62,7 @@ def actions0(row,col):
        button_grid[row][col].config(text=counters[row][col])
        counter1 += 3
    print(counter1)
+   #button1.config(text=counter1)
 
 
 
@@ -116,6 +117,7 @@ def actions1(row,col):
        button_grid[row][col].config(text=counters[row][col])
        counter2 += 3
    print(counter2)
+   #button2.config(text=counter2)
 
 
 
@@ -153,16 +155,12 @@ for i in range(7):
    button_grid[0][i].config(fg="red")
    button_grid[1][i].config(fg="blue")
 
-
-root = tk.Tk()
-text_label = tk.Label(root, text=counter1, font=("Helvetica", 12))
-text_label.pack(pady=20)
-
-
-text_label = tk.Label(root, text=counter2, font=("Helvetica", 12))
-text_label.pack(pady=20)
+popup = tk.Tk()
+#button1 = tk.Button(popup, text=str(counter1), command=lambda, height=2, width=4, font=("Times New Roman", 70))
+#button2 = tk.Button(popup, text=str(counter2), command=lambda, height=2, width=4, font=("Times New Roman", 70))
 
 
+print(counter1, counter2)
 # Start the tkinter main loop
 root.mainloop()
 

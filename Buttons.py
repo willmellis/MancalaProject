@@ -13,19 +13,30 @@ def actions0(row,col):
         player = not player
         return
     value = counters[row][col]
+    print(value)
     counters[row][col] = 0
-    button_grid[row][col].config(text=counters[row][col])
-    if value > col and row == 0:  # if the value (number of stones) is grater then the index of the colum and the row == 0
+    tempcol = col
+    button_grid[row][col].config(text=0)
+    if value <= col:  # if value <= the colum index and row == 0 the code below will run
+        row = 0
+        for c in range(value):  # while a <= value, the code below will run
+            col -= 1
+            #print("col",col)
+            counters[0][col] += 1
+            button_grid[0][col].config(text=counters[0][col])
+        #print(row,col)
+    print(counters)
+    if value > tempcol and row == 0:  # if the value (number of stones) is grater then the index of the colum and the row == 0
         wrap = value - col
         alr = wrap - 7
-        print("wrap =",wrap,"  alr =",alr)
+        #print("wrap =",wrap,"  alr =",alr)
         for i in range(value - wrap):  # the for loop runs while i is <=value-wrap
             col -= 1
-            counters[row][col] += 1
-            button_grid[row][col].config(text=counters[row][col])
+            counters[0][col] += 1
+            button_grid[0][col].config(text=counters[0][col])
         if wrap > 6:
             wrap -= alr
-            print("NEW wrap =",wrap,"  alr =",alr)
+            #print("NEW wrap =",wrap,"  alr =",alr)
         for j in range(wrap): # while j is <=wrap, the code below will run
             counters[1][col] += 1
             button_grid[1][col].config(text=counters[1][col])
@@ -35,19 +46,8 @@ def actions0(row,col):
                 col -= 1
                 counters[0][col] += 1
                 button_grid[row][col].config(text=counters[0][col])
+    print(counters)
 
-    # ok, so the code below is what was causing the issue
-    # this code is supposed to handle the wrap back around, if the number is large enough
-    # so you need the loop to start at the right most col
-    # row needs to be starting at 0
-    if value <= col and row == 0:  # if value <= the colum index and row == 0 the code below will run
-        row = 0
-        for c in range(value):  # while a <= value, the code below will run
-            col -= 1
-            print("col",col)
-            counters[row][col] += 1
-            button_grid[row][col].config(text=counters[row][col])
-        #print(row,col)
 
 def actions1(row,col):
     global player
@@ -57,26 +57,8 @@ def actions1(row,col):
         return
     value = counters[row][col]
     counters[row][col] = 0
+    tempcol2 = col
     button_grid[row][col].config(text=counters[row][col])
-    if value > 6-col and row == 1:  # if the value (number of stones) is grater then the index of the column and the row == 0
-        wrap = value - (6 - col)
-        alr = wrap - 7
-        row = 0
-        # I added this so that the for loop below would work, and we could change value
-        # This solves you issue with the far left pit.
-        # note how I subtract one from value in both loops
-        runRow = 6 - col
-        for i in range(runRow):  # the for loop runs while i is <= runRow
-            col += 1
-            counters[1][col] += 1
-            button_grid[1][col].config(text=counters[1][col])
-        # col = 0
-        for j in range(wrap):  # while j is <=wrap, the code below will run
-            counters[0][col] += 1
-            button_grid[0][col].config(text=counters[0][col])
-            col -= 1
-        col += 1
-        #print(row, col)
     if value <= 6 - col and row == 1:  # if the value is <= the index of the colum and the row = 0, the code below will run
         row = 1
         for d in range(value):  # while a is <= value, the code below will run
@@ -84,6 +66,30 @@ def actions1(row,col):
             counters[row][col] += 1
             button_grid[row][col].config(text=counters[row][col])
         #print(row,col)
+    if value > 6-tempcol2 and row == 1:  # if the value (number of stones) is grater then the index of the column and the row == 0
+        wrap = value - (6 - col)
+        alr = wrap - 7
+        row = 0
+        runRow = 6 - col
+        for i in range(runRow):  # the for loop runs while i is <= runRow
+            col += 1
+            counters[1][col] += 1
+            button_grid[1][col].config(text=counters[1][col])
+        # col = 0
+        if wrap > 6:
+            wrap -= alr
+            print("NEW wrap =",wrap,"  alr =",alr)
+        for j in range(wrap):  # while j is <=wrap, the code below will run
+            counters[0][col] += 1
+            button_grid[0][col].config(text=counters[0][col])
+            col -= 1
+        if alr > 0:
+            for f in range(alr):
+                counters[1][col] += 1
+                button_grid[1][col].config(text=counters[1][col])
+                col += 1
+        col += 1
+        #print(row, col)
     if counters[row][col] == 1:
         player = not player
         counter1 += counters[1][col]

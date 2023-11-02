@@ -38,7 +38,7 @@ for i in range(2):#while i <= 2(the number of rows), the code below will run
        button.grid(row=i, column=j, padx=10, pady=10)
        row.append(button)
    button_grid.append(row)
-for i in range(7):
+for i in range(7): #changing the colors of the board
    button_grid[0][i].config(fg="red")
    button_grid[1][i].config(fg="blue")
 
@@ -46,7 +46,7 @@ player = True
 counter1 = 0
 counter2 = 0
 
-def actions0(row,col):
+def actions0(row,col): #all actions done in the first row are controlled here
    global player
    global counter1
    if row == 1: #if the row being modified is the bottom row, player = not player
@@ -81,24 +81,27 @@ def actions0(row,col):
            counters[1][col] += 1
            button_grid[1][col].config(text=counters[1][col])
            col += 1
-       if alr > 0:
-           for f in range(alr):
+       if alr > 0: #if alr > 0 double wrap on the top row
+           for f in range(alr): #traverse the board
                col -= 1
                counters[0][col] += 1
                button_grid[row][col].config(text=counters[0][col])
        col -=1
-   print(row,col)
-   if counters[row][col] == 1:
+   #print(row,col)
+   #conditions to make the game interesting
+   if counters[row][col] == 1: #if you land on an empty space, go again and you get the stones from across the board
        player = not player
        counter1 += counters[1][col]
        #updates player 1's score in label
        counterLabel1.set(str(counter1))
-   if counters[row][col] == 3:
+   if counters[row][col] == 3: #if you land on a pit with 3 stones, it becomes zero an you get +3
        counters[row][col] = 0
        button_grid[row][col].config(text=counters[row][col])
        counter1 += 3
        #updates player 1's score in label
        counterLabel1.set(str(counter1))
+   if counter1 >= 20:
+       counterLabel1.set("You Win!")
 
 def actions1(row,col):
    global player
@@ -144,20 +147,23 @@ def actions1(row,col):
    if counters[row][col] == 1:
        player = not player
        counter2 += counters[1][col]
-       counters[0][col] = 0
        button_grid[0][col].config(text=counters[0][col])
        #updates player 2's score in label
        counterLabel2.set(str(counter2))
    if counters[row][col] == 3:
        counters[row][col] = 0
        button_grid[row][col].config(text=counters[row][col])
-       counter2 += 3  
+       counter2 += 3
        #updates player 2's score in label
        counterLabel2.set(str(counter2))
+   if counter2 >= 20:
+       counterLabel2.set("You Win!")
 #this method determines what modifications are made to the board after a player clicks on a pit of their choice.
 #The modifications depends on what happens during the move, and what happens after. (i.e if a player lands in an empty pit)
 def button_click(row, col):
    global player
+   global counterLabel1
+   global counterLabel2
    if player == True:
        actions0(row,col)
    elif player == False:
@@ -167,5 +173,3 @@ def button_click(row, col):
 
 # Start the tkinter main loop
 root.mainloop()
-
-
